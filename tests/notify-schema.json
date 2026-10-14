@@ -1,0 +1,48 @@
+{
+  "$comment": "A COPY of the relay's own NotifyRequestSchema (cozygateway packages/relay/src/schemas.ts, push-v0), kept here so the plugin's bodies are checked against the contract rather than against what the plugin happens to send. TypeBox emits JSON Schema, so this is the same document its Type.Object() calls build. Update it when the relay's contract changes, never to make a test pass.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pushId"],
+  "properties": {
+    "pushId": { "type": "string", "minLength": 1 },
+    "ciphertext": { "type": "string", "minLength": 1, "maxLength": 8192 },
+    "liveActivity": {
+      "type": "object",
+      "required": ["timestamp", "event", "contentState", "priority"],
+      "properties": {
+        "timestamp": { "type": "integer" },
+        "event": { "enum": ["update", "end"] },
+        "contentState": {
+          "type": "object",
+          "required": ["phase", "toolCallCount", "shortStatus", "eventSequence"],
+          "properties": {
+            "phase": {
+              "enum": ["queued", "thinking", "usingTools", "writing", "waitingOnApproval",
+                       "completed", "failed"]
+            },
+            "toolCallCount": { "type": "integer", "minimum": 0, "maximum": 10000 },
+            "shortStatus": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "eventSequence": { "type": "integer", "minimum": 0 },
+            "elapsedSeconds": { "type": "integer", "minimum": 0, "maximum": 604800 },
+            "approvalID": { "type": "string", "minLength": 1, "maxLength": 200 }
+          }
+        },
+        "staleDate": { "type": "integer" },
+        "dismissalDate": { "type": "integer" },
+        "alert": {
+          "type": "object",
+          "required": ["title", "body", "sound"],
+          "properties": {
+            "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "body": { "type": "string", "minLength": 1, "maxLength": 160 },
+            "sound": { "const": "default" }
+          }
+        },
+        "priority": { "enum": [5, 10] }
+      }
+    },
+    "category": { "enum": ["message", "approval.pending", "approval.resolved", "mobile.status.wake", "task.completed"] },
+    "interruptionLevel": { "const": "time-sensitive" },
+    "collapseId": { "type": "string", "maxLength": 64, "pattern": "^[A-Za-z0-9_.:-]{1,64}$" }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "_note": "Frozen interop vectors for the cozygateway push-v0 envelope. app_vector is the vector CozyKit/Tests/CozyKitTests/PushCryptoTests.swift pins for the app's own PushCrypto; plugin_sealed was produced by cozychat/push.py seal() and is opened by the Swift side in HermesPluginReleaseTests, so both directions are proven against real app bytes. key_material_hex is hex of the UTF-8 bytes of the push-key string the phone keeps in its Keychain, which is exactly what `plugin device add` writes to keys/<device_id>.",
+  "app_vector": {
+    "ciphertext_b64url": "AAECAwQFBgcICQoLMrMUvL7D5rFU23RVzVcbk38hMFVss1lpguc9A19Wm_dPzGpMwOApxowgZnc2o8Wepd6ttbU_8eDcAhYjIc5nODOJdRkk5pIMpd03K5pLkuZueeDWqN0CPhDLSJia_AlAH2ZM",
+    "derived_key_hex": "ace1356ac7fe54a993c093cfb02c7c6d6a9c794e8c9076bb6b0281554d263b62",
+    "key_material_hex": "746573742d707573682d6b6579",
+    "payload": {
+      "agentName": "Demo Agent",
+      "preview": "Hello from the gateway",
+      "threadId": "thread-1"
+    },
+    "push_key": "test-push-key"
+  },
+  "plugin_sealed": {
+    "ciphertext_b64url": "AyXX5TF--5Y8akPfQLXTPPd7M61IYPizFZR6upNTXf_yfbyl22m9AqwnN-GXJju2Yf_t717ikbWb8sugVY7y6EpcAWMy4K5a34EiQENaphTZx0BU9vKpfEY_tRvEHedmwWUiJhERdwaTf3t8W0WiyhJEa20OfM2TfJB2Vwi6a68w95CsdUEVWTycSrYbUYs",
+    "key_material_hex": "746573742d707573682d6b6579",
+    "payload": {
+      "agentName": "hermes",
+      "kind": "message",
+      "preview": "The plugin sealed this on the computer.",
+      "threadId": "bot:hermes"
+    },
+    "push_key": "test-push-key"
+  }
+}

@@ -1,0 +1,27 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.coverage
+coverage.xml
+htmlcov/
+.idea/
+.vscode/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+output/
+
+# Plugin runtime state must never be committed
+devices.json
+pairing.json
+attempt.json
+lan.json
+host.key
+listener.lock
+desktop.json
+reachable.json
+live-activities.json
+*.sqlite*

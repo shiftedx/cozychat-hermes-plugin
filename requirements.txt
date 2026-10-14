@@ -1,0 +1,6 @@
+# Installed separately with Hermes's dependency consent; never vendor these into the plugin.
+cryptography>=41,<51
+psutil>=5.9,<9
+zeroconf>=0.132,<1
+qrcode>=7.4,<9
+pypng>=0.20220715.0,<1

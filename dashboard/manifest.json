@@ -1,0 +1,11 @@
+{
+  "name": "cozychat",
+  "label": "CozyChat",
+  "description": "Pairs CozyChat with this computer and streams Hermes activity to your phone.",
+  "icon": "Smartphone",
+  "version": "0.6.0",
+  "tab": {
+    "hidden": true
+  },
+  "api": "plugin_api.py"
+}

@@ -1,0 +1,16 @@
+# What the plugin's pytest suite needs. None of this ships or is installed into Hermes.
+#
+# Runtime dependencies, including optional mDNS, installed in the disposable test environment.
+-r requirements.txt
+pytest
+# The dashboard router's test harness, not a plugin dependency.
+fastapi
+httpx
+pyyaml
+# Push/Live Activity payload schema validation (also present in Hermes).
+jsonschema
+# An independent Desktop QR decoder; never bundled into the plugin.
+zxing-cpp>=2.3
+# The reference Noise implementation: it generates tests/noise_vectors.json and is the other end of
+# the live interop tests. Pinned so a library change cannot silently change the vectors.
+noiseprotocol==0.3.1

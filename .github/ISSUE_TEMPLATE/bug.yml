@@ -1,0 +1,25 @@
+name: Bug
+description: Something is broken
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened
+      description: Steps to reproduce, what you expected, what you saw.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Version
+      description: Plugin version (`hermes plugins list`) and Hermes version.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Setup
+      description: Computer OS and arch, Hermes Desktop or CLI, iPhone and CozyChat version, network (home Wi-Fi, VPN, WSL).
+  - type: textarea
+    attributes:
+      label: Logs
+      description: Relevant Hermes log lines. Remove hostnames, addresses, API keys, pairing codes and anything else you don't want public.
+      render: text

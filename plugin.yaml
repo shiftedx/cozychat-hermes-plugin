@@ -1,0 +1,90 @@
+# 0.6.0 release manifest; keep in step with the source manifest.
+name: cozychat
+label: CozyChat
+kind: platform
+version: 0.6.0
+manifest_version: 2
+requires_hermes: ">=0.21.6"
+description: >
+  After explicit notification opt-in, pushes a Hermes reply, approval, or room mention to a paired
+  CozyChat phone, sealed with a key
+  the phone generated. After `hermes cozychat pair`, it also lets that phone reach this Hermes over
+  the home network through an end-to-end encrypted tunnel; until then nothing listens.
+author: CozyLabs
+homepage: https://cozylabs.ai
+license: MIT
+tags: [notifications, mobile, push, lan]
+# Runtime dependencies are separately installed by Hermes with user consent.
+# requirements.txt declares the same bounds; zeroconf is optional at runtime.
+python_dependencies:
+  - cryptography>=41,<51
+  - psutil>=5.9,<9
+  - zeroconf>=0.132,<1
+  - qrcode>=7.4,<9
+  - pypng>=0.20220715.0,<1
+config_schema:
+  relay_url:
+    type: str
+    default: https://push.cozylabs.ai
+    description: Relay used only by explicitly opted-in phones; no traffic by default.
+  push_replies:
+    type: bool
+    default: true
+    description: Notify when a reply finishes in a direct chat.
+  push_approvals:
+    type: bool
+    default: true
+    description: Notify when an approval opens or settles.
+  push_rooms:
+    type: bool
+    default: true
+    description: Notify when a room turn needs you.
+  mute_subagents:
+    type: bool
+    default: true
+    description: Keep subagent lifecycle out of notifications.
+  preview_mode:
+    type: str
+    default: sealed
+    description: "sealed sends the reply preview inside the ciphertext; none sends a content-free alert."
+  lan:
+    type: bool
+    default: true
+    description: "Let a paired phone reach this computer over the home network. false: nothing listens."
+  lan_port:
+    type: int
+    default: 0
+    description: "Listener port. 0 picks one at random once and keeps it."
+  lan_advertise:
+    type: bool
+    default: true
+    description: "Advertise the paired listener on its bound interfaces with mDNS. false keeps address hints only."
+  lan_bind:
+    type: list
+    default: []
+    description: "Listen on only these of this computer's private addresses. It can only narrow: loopback, 0.0.0.0, public addresses and 100.64/10 off a VPN interface are ignored."
+  files_allowed_roots:
+    type: list
+    description: "Trusted absolute read roots (advanced). Omit to allow only the user's Desktop, Documents, Downloads, Pictures, Movies and Music folders (those that exist); the Hermes inbox and media delivery cache are always included. Hidden files and other Hermes/plugin state remain private."
+  files_workspace:
+    type: str
+    description: "An optional trusted Hermes workspace/cwd to include as a read root."
+# The live feed's hooks are here as well as in register(): a hook registered but not declared
+# fails `hermes plugins validate`, and a hook declared but not registered fails it the other way.
+provides_hooks:
+  - on_stream_start
+  - on_stream_delta
+  - on_stream_end
+  - on_interim_message
+  - pre_tool_call
+  - post_tool_call
+  - subagent_start
+  - subagent_stop
+  - agent_loop_stopped
+  - on_session_end
+  - pre_approval_request
+  - post_approval_response
+  - on_room_member_activity
+provides_tools: []
+provides_middleware: []
+requires_env: []
